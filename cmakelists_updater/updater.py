@@ -57,10 +57,11 @@ class CMakeListsUpdater(FileSystemEventHandler):
         print("CMakeLists.txt updated.")
     
     def on_created(self, event):
-        if not event.is_directory:
+        if not event.is_directory and not any(ignored in event.src_path for ignored in self.ignore_list):
             self.update_cmakelists()
+    
     def on_deleted(self, event):
-        if not event.is_directory:
+        if not event.is_directory and not any(ignored in event.src_path for ignored in self.ignore_list):
             self.update_cmakelists()
 
 def main():

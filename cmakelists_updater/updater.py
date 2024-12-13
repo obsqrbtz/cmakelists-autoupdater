@@ -65,7 +65,7 @@ class CMakeListsUpdater(FileSystemEventHandler):
 
 def main():
     if len(sys.argv) < 2:
-        print("Usage: python -m cmakelists_updater <config_file>")
+        print("Usage: cmakelists_updater <config_file>")
         sys.exit(1)
 
     config_file = sys.argv[1]

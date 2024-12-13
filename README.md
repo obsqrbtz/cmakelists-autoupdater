@@ -7,7 +7,7 @@ CMakeLists Updater detects new or deleted `.h`, `.hpp`, and `.cpp` files and upd
 Install the package using `pip`:
 
 ```bash
-pip install git+https://github.com/obsqrbtz/cmakelists_autoupdater
+pip install git+https://github.com/obsqrbtz/cmakelists-autoupdater
 ```
 
 ## Configuration

@@ -1,6 +1,6 @@
 # CMakeLists Updater
 
-CMakeLists Updater detects new or deleted `.h`, `.hpp`, and `.cpp` files and updates `SET(HEADERS)` and `SET(SOURCES)` sections in the `CMakeLists.txt` file.
+CMakeLists Updater detects new or deleted `.h`, `.hpp`, and `.cpp` files and updates `SET(HEADERS)` and `SET(SOURCES)` sections in the `CMakeLists.txt` file. It also supports a global ignore list for files and directories that should not be monitored.
 
 ## Installation
 
@@ -15,6 +15,10 @@ pip install git+https://github.com/obsqrbtz/cmakelists-autoupdater
 Create a YAML configuration file (e.g., `config.yaml`) with the following structure:
 
 ```yaml
+global_ignore_list:
+    - build
+    - .git
+    - .vscode
 cmake_files:
   path/to/first/CMakeLists.txt:
     source_dirs:
@@ -34,7 +38,8 @@ cmake_files:
 
 - **`cmake_files`**: A mapping of CMake files to their respective settings.
 - **`source_dirs`**: A list of directories to monitor for source file changes.
-- **`ignore_list`**: (Optional) A list of directories or files to exclude from monitoring.
+- **`ignore_list`**: (Optional) A list of directories or files to exclude from monitoring for each CMake file.
+- **`global_ignore_list`**: (Optional) A list of directories or files to exclude from monitoring across all CMake files.
 
 ## Usage 
 

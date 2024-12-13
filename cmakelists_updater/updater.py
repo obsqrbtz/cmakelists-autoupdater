@@ -54,7 +54,7 @@ class CMakeListsUpdater(FileSystemEventHandler):
         with open(self.cmake_file, 'w') as file:
             file.writelines(new_content)
 
-        print("CMakeLists.txt updated.")
+        print(f"CMakeLists.txt updated: {self.cmake_file}")
     
     def on_created(self, event):
         if not event.is_directory and not any(ignored in event.src_path for ignored in self.ignore_list):
@@ -74,18 +74,18 @@ def main():
     with open(config_file, 'r') as file:
         config = yaml.safe_load(file)
 
-    source_dirs = [os.path.abspath(dir) for dir in config.get('source_dirs', [])]
-    cmake_file = os.path.abspath(config.get('cmake_file', ''))
-    ignore_list = config.get('ignore_list', [])
+    for cmake_file, settings in config.get('cmake_files', {}).items():
+        source_dirs = [os.path.abspath(dir) for dir in settings.get('source_dirs', [])]
+        ignore_list = settings.get('ignore_list', [])
 
-    event_handler = CMakeListsUpdater(source_dirs, cmake_file, ignore_list)
-    observer = Observer()
-    
-    for directory in source_dirs:
-        observer.schedule(event_handler, directory, recursive=True)
+        event_handler = CMakeListsUpdater(source_dirs, cmake_file, ignore_list)
+        observer = Observer()
+        
+        for directory in source_dirs:
+            observer.schedule(event_handler, directory, recursive=True)
 
     observer.start()
-    print("Monitoring for changes in:", source_dirs)
+    print("Monitoring for changes in:\n" + "\n".join(f"- {os.path.abspath(cmake_file)}" for cmake_file in config.get('cmake_files', {}).keys()))
 
     try:
         while True:

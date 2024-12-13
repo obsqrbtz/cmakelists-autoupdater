@@ -15,16 +15,25 @@ pip install git+https://github.com/obsqrbtz/cmakelists-autoupdater
 Create a YAML configuration file (e.g., `config.yaml`) with the following structure:
 
 ```yaml
-source_dirs:
-  - path/to/source1
-cmake_file: path/to/CMakeLists.txt
-ignore_list:
-  - ignored_dir
-  - ignored_file.cpp
+cmake_files:
+  path/to/first/CMakeLists.txt:
+    source_dirs:
+      - path/to/first/src
+      - path/to/first/include
+    ignore_list:
+      - ignored_dir
+      - ignored_file.cpp
+  path/to/second/CMakeLists.txt:
+    source_dirs:
+      - path/to/second/src
+      - path/to/second/include
+    ignore_list:
+      - ignored_dir
+      - ignored_file.cpp
 ```
 
+- **`cmake_files`**: A mapping of CMake files to their respective settings.
 - **`source_dirs`**: A list of directories to monitor for source file changes.
-- **`cmake_file`**: Path to the `CMakeLists.txt` file to update.
 - **`ignore_list`**: (Optional) A list of directories or files to exclude from monitoring.
 
 ## Usage 
@@ -71,7 +80,7 @@ Add `.vscode/tasks.json` file to your project root with the following contents:
 
 ### CMake command
 
-Check if cmake-autoupdater is installed and execute it found
+Check if cmake-autoupdater is installed and execute it if found:
 
 ```cmake
 set(AUTO_UPDATER_STARTED FALSE CACHE BOOL "" FORCE)
@@ -108,27 +117,30 @@ In order to get the script working, first make sure that CMakeLists has `HEADERS
 SET(HEADERS
     include/project.hpp
 )
+
 SET(SOURCES
     src/utils.hpp
     src/utils.cpp
     src/main.cpp
     ${HEADERS}
 )
+
 add_executable(${PROJECT_NAME}
     ${HEADERS}
     ${SOURCES}
-    any_extermal_dep.hpp)
+    any_external_dep.hpp)
 ```
 
 Place a `config.yaml` file into the project root. It might look like:
 
 ```yaml
-source_dirs:
-  - src
-  - include
-cmake_file: CMakeLists.txt
-ignore_list:
-  - build
+cmake_files:
+  CMakeLists.txt:
+    source_dirs:
+      - src
+      - include
+    ignore_list:
+      - build
 ```
 
 Run the following command from the project root to start monitoring and updating the `CMakeLists.txt`:

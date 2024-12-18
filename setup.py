@@ -2,7 +2,7 @@ from setuptools import setup, find_packages
 
 setup(
     name="cmakelists-updater",
-    version="1.0.0",
+    version="1.0.1",
     description="A tool to auto-update CMakeLists.txt when source files change.",
     long_description=open("README.md").read(),
     long_description_content_type="text/markdown",

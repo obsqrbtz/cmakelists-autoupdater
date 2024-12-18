@@ -1,5 +1,9 @@
 # CMakeLists Updater
 
+[![PyPI version](https://img.shields.io/pypi/v/cmakelists-updater)](https://pypi.org/project/cmakelists-updater/)
+![License](https://img.shields.io/pypi/l/cmakelists-updater)
+![Python versions](https://img.shields.io/pypi/pyversions/cmakelists-updater)
+
 CMakeLists Updater detects new or deleted `.h`, `.hpp`, and `.cpp` files and updates `SET(HEADERS)` and `SET(SOURCES)` sections in the `CMakeLists.txt` file. It also supports a global ignore list for files and directories that should not be monitored.
 
 ## Installation
@@ -7,7 +11,7 @@ CMakeLists Updater detects new or deleted `.h`, `.hpp`, and `.cpp` files and upd
 Install the package using `pip`:
 
 ```bash
-pip install git+https://github.com/obsqrbtz/cmakelists-autoupdater
+pip install cmakelists-updater
 ```
 
 ## Configuration
@@ -107,13 +111,13 @@ Assume the following directory structure:
 
 ```
 project/
-├── src/
-│   ├── main.cpp
-│   ├── utils.cpp
-│   └── utils.hpp
-├── include/
-│   └── project.hpp
-└── CMakeLists.txt
+--src/
+----main.cpp
+----utils.cpp
+----utils.hpp
+--include/
+----project.hpp
+--CMakeLists.txt
 ```
 
 In order to get the script working, first make sure that CMakeLists has `HEADERS` and `SOURCES` variables set and are used in `add_executable`/`add_library`:
